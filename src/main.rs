@@ -52,12 +52,23 @@ fn main() {
 
     let mut rng = OsRng;
     let mut data = [0u8; 32];
-    //data[0] = 1; // 第一个字节为 1，其余都是 0
-    rng.fill_bytes(&mut data);
+    data[0] = 1; // 第一个字节为 1，其余都是 0
+    //rng.fill_bytes(&mut data);
+    println!("1");
+    for i in 0..1_000_000 {
+        let keyinfo = verify_by_address(&data);
 
-    let keyinfo = verify_by_address(&data);
+        // 打印前 10 个，其余不打印
+        if i < 10 {
+            println!("{:?}", keyinfo);
+        }
 
-    println!("{:#?}", keyinfo);
+        // TODO: 写入文件，而不是全存在内存里
+        // 比如写 CSV / JSON
+    }
+    // let keyinfo = verify_by_address(&data);
+
+    // println!("{:#?}", keyinfo);
 
     //5) 生成 P2TR (Taproot) 地址
     // let keypair = Keypair::from_secret_key(&secp, &secret_key);
