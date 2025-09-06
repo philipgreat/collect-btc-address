@@ -14,12 +14,16 @@ fn main() {
     let string_set = StringSet::from_file("./address.list").expect("无法加载 address.list 文件");
     println!("Loaded {} entries", string_set.len());
     let count = 1_000_000_000;
+    let report_count = 1_000_000;
     for i in 0..count {
         let keyinfo = generate_address::generate_address(&data);
         let test_words = vec![keyinfo.p2pkh, keyinfo.p2wpkh];
         for word in test_words {
             if string_set.contains(&word) {
                 println!("address {} has key {} 在集合中", word, keyinfo.wif);
+            }
+            if i % report_count == 0 {
+                println!("finish ")
             }
             // } else {
             //     //println!("{} 不在集合中", word);
