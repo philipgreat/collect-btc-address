@@ -23,7 +23,7 @@ fn main() {
                 println!("address {} has key {} 在集合中", word, keyinfo.wif);
             }
             if i % report_count == 0 {
-                println!("finish ")
+                println!("finish {} times", i)
             }
             // } else {
             //     //println!("{} 不在集合中", word);
