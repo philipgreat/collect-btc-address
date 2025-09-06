@@ -13,7 +13,7 @@ fn main() {
     println!("1");
     let string_set = StringSet::from_file("./address.list").expect("无法加载 address.list 文件");
     println!("Loaded {} entries", string_set.len());
-    let count = 1_000_000;
+    let count = 1_000_000_000;
     for i in 0..count {
         let keyinfo = generate_address::generate_address(&data);
         let test_words = vec![keyinfo.p2pkh, keyinfo.p2wpkh];
