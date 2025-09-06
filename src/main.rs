@@ -1,52 +1,8 @@
-use bitcoin::{
-    Address, Network, PrivateKey, PublicKey,
-    secp256k1::{Secp256k1, SecretKey},
-};
 use rand::RngCore;
 use rand::rngs::OsRng;
-
-#[derive(Debug, Clone)]
-pub struct KeyInfo {
-    /// 私钥的 WIF 表示
-    pub wif: String,
-    /// 公钥（hex 压缩形式）
-    pub public_key: String,
-    /// P2PKH 地址
-    pub p2pkh: String,
-    /// P2WPKH 地址
-    pub p2wpkh: String,
-}
-
-fn verify_by_address(data: &[u8]) -> KeyInfo {
-    let secp = Secp256k1::new();
-
-    let secret_key = SecretKey::from_slice(&data).expect("32 bytes, within curve order");
-    //let private_key = PrivateKey::new(secret_key, Network::Bitcoin);
-
-    let private_key = PrivateKey {
-        network: Network::Bitcoin,
-        compressed: true,
-        inner: secret_key,
-    };
-
-    // 2) 生成公钥
-    let public_key = PublicKey::from_private_key(&secp, &private_key);
-
-    // 3) 生成 P2PKH 地址
-    let addr_p2pkh = Address::p2pkh(&public_key, Network::Bitcoin);
-
-    //4) 生成 P2WPKH (bech32) 地址
-
-    let addr_p2wpkh = Address::p2wpkh(&public_key, Network::Bitcoin).expect("需要压缩公钥");
-
-    KeyInfo {
-        wif: private_key.to_wif(),
-        public_key: public_key.to_string(),
-        p2pkh: addr_p2pkh.to_string(),
-        p2wpkh: addr_p2wpkh.to_string(),
-    }
-}
-
+mod KownAddressSet;
+mod generate_address;
+use KownAddressSet::StringSet;
 fn main() {
     // 1) 随机生成私钥
 
@@ -55,11 +11,25 @@ fn main() {
     data[0] = 1; // 第一个字节为 1，其余都是 0
     //rng.fill_bytes(&mut data);
     println!("1");
-    for i in 0..1_000_000 {
-        verify_by_address(&data);
+    let string_set = StringSet::from_file("./address.list").expect("无法加载 address.list 文件");
+    println!("Loaded {} entries", string_set.len());
+    let count = 1_000_000;
+    for i in 0..count {
+        let keyinfo = generate_address::generate_address(&data);
+        let test_words = vec![keyinfo.p2pkh, keyinfo.p2wpkh];
+        for word in test_words {
+            if string_set.contains(&word) {
+                println!("address {} has key {} 在集合中", word, keyinfo.wif);
+            }
+            // } else {
+            //     //println!("{} 不在集合中", word);
+            // }
+        }
         // TODO: 写入文件，而不是全存在内存里
         // 比如写 CSV / JSON
     }
+
+    println!("finish {} times!", count);
     // let keyinfo = verify_by_address(&data);
 
     // println!("{:#?}", keyinfo);
