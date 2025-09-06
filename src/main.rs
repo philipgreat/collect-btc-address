@@ -56,13 +56,7 @@ fn main() {
     //rng.fill_bytes(&mut data);
     println!("1");
     for i in 0..1_000_000 {
-        let keyinfo = verify_by_address(&data);
-
-        // 打印前 10 个，其余不打印
-        if i < 10 {
-            println!("{:?}", keyinfo);
-        }
-
+        verify_by_address(&data);
         // TODO: 写入文件，而不是全存在内存里
         // 比如写 CSV / JSON
     }
