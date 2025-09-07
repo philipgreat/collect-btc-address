@@ -8,7 +8,7 @@ function run_inst()
 	for config in "$@"
 	do
         echo "running config for ${config}"
-		ps -ef|grep -v "grep" |grep "${config}.log" ||  nohup  ./data/collect-btc-address > ${config}.log &
+		ps -ef|grep -v "grep" |grep "${config}.log" ||  nohup  ./data/collect-btc-address >> ${config}.log &
 	done
 
 }
