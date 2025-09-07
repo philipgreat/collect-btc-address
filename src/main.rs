@@ -1,8 +1,8 @@
 use rand::RngCore;
 use rand::rngs::OsRng;
-mod KownAddressSet;
 mod generate_address;
-use KownAddressSet::StringSet;
+mod kown_address_set;
+use kown_address_set::StringSet;
 fn main() {
     // 1) 随机生成私钥
 

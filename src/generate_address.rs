@@ -9,8 +9,6 @@ use rand::rngs::OsRng;
 pub struct KeyInfo {
     /// 私钥的 WIF 表示
     pub wif: String,
-    /// 公钥（hex 压缩形式）
-    pub public_key: String,
     /// P2PKH 地址
     pub p2pkh: String,
     /// P2WPKH 地址
@@ -41,7 +39,6 @@ pub fn generate_address(data: &[u8]) -> KeyInfo {
 
     KeyInfo {
         wif: private_key.to_wif(),
-        public_key: public_key.to_string(),
         p2pkh: addr_p2pkh.to_string(),
         p2wpkh: addr_p2wpkh.to_string(),
     }
