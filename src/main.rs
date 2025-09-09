@@ -26,7 +26,7 @@ fn main() {
 
         for word in test_words {
             if string_set.contains(&word) {
-                println!("address {} has key {} 在集合中", word, keyinfo.wif);
+                info!("address {} has key {} in the set", word, keyinfo.wif);
             }
         }
     }
