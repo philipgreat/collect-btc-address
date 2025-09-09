@@ -2,8 +2,8 @@ use bitcoin::{
     Address, Network, PrivateKey, PublicKey,
     secp256k1::{Secp256k1, SecretKey},
 };
-use rand::RngCore;
-use rand::rngs::OsRng;
+// use rand::RngCore;
+// use rand::rngs::OsRng;
 
 #[derive(Debug, Clone)]
 pub struct KeyInfo {
