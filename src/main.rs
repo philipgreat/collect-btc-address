@@ -4,7 +4,7 @@ use rand::rngs::OsRng;
 mod generate_address;
 mod kown_address_set;
 use kown_address_set::StringSet;
-use tracing::{info};
+use tracing::info;
 
 fn main() {
     // 1) 随机生成私钥
@@ -16,8 +16,8 @@ fn main() {
     let string_set = StringSet::from_file("./address.list").expect("无法加载 address.list 文件");
     info!("Loaded {} entries", string_set.len());
     let count = 1_000_000_000;
-    //let report_count = 1_0_000_000;
-    for _ in 0..count {
+    let report_count = 1_000_000;
+    for i in 0..count {
         let mut data = [0u8; 32];
         rng.fill_bytes(&mut data);
         let keyinfo = generate_address::generate_address(&data);
