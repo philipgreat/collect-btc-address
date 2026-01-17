@@ -1,5 +1,6 @@
 all:
 	cargo build --release
+	mkdir -p data
 	cp target/release/collect-btc-address ./data/
 	time ./data/collect-btc-address
 

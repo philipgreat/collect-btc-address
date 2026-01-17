@@ -13,4 +13,5 @@ function run_inst()
 
 }
 
-run_inst cba-001 cba-002 cba-003
+run_inst cba-001 cba-002 cba-003 cba-004 cba-005 cba-006
+
