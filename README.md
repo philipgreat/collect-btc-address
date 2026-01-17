@@ -1,9 +1,12 @@
 # collect-btc-address
 
-## 编译
+## 编译(第一次使用)
 
 ```shell
-https://github.com/philipgreat/collect-btc-address.git
+git clone https://github.com/philipgreat/collect-btc-address.git
+cd collect-btc-address
+make
+
 ```
 
 ## 运行
@@ -12,7 +15,7 @@ https://github.com/philipgreat/collect-btc-address.git
 bash keep-run.sh
 ```
 
-## 调整实例个数
+## 调整实例个数(默认6个，大多数用户可用)
 
 ```shell
 #!/bin/bash

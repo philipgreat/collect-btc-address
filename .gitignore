@@ -24,3 +24,4 @@ data/*
 # Added by cargo
 
 /target
+*.log
